@@ -23,14 +23,15 @@ The request body should contain the following fields:
 ## Example Request
 
 ```json
-{
-  "fullname": {
-    "firstname": "John",
-    "lastname": "Doe"
-  },
-  "email": "johndoe@example.com",
-  "password": "password123"
-}
+    {
+    "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+    },
+    "email": "johndoe@example.com",
+    "password": "password123"
+    }
+```
 
 ## Example Response
 
@@ -46,8 +47,9 @@ The request body should contain the following fields:
     "email": "johndoe@example.com"
   }
 }
+```
 
-##E xample Error Response
+## Example Error Response
 
 ```json
 {
