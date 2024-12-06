@@ -33,6 +33,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Hash password before saving user document
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password') || this.isNew) {
+    this.password = await bcrypt.hash(this.password, 10); // Hash password with salt rounds of 10
+  }
+  next();
+});
+
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ email: this.email }, process.env.JWT_SECRET);
   return token;
@@ -40,9 +48,6 @@ userSchema.methods.generateAuthToken = function () {
 
 userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
-};
-userSchema.hashPassword = async function (password) {
-  return await bcrypt.hash(password, 10);
 };
 
 module.exports = mongoose.model("user", userSchema);
