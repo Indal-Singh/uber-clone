@@ -12,9 +12,16 @@ router.post(
       .withMessage("First Name must be at least 3 charator"),
     body("password")
       .isLength({ min: 6 })
-      .withMessage("First Name must be at least 6 charator"),
+      .withMessage("Passsword Name must be at least 6 charator"),
   ],
   userController.userResgister
 );
+
+router.post("/login",[
+  body("email").isEmail().withMessage("Invalid Email"),
+  body("password")
+      .isLength({ min: 6 })
+      .withMessage("Passsword Name must be at least 6 charator"),
+] ,userController.userLogin);
 
 module.exports = router;

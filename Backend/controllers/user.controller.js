@@ -21,3 +21,21 @@ module.exports.userResgister = async (req, res, next) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+module.exports.userLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email }).select("+password");
+    if (!user) {
+      return res.status(401).json({ error: "Invalid Email & Password" });
+    }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid Email & Password" });
+    }
+    const token = user.generateAuthToken();
+    return res.status(200).json({token, user});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
