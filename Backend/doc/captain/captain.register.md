@@ -19,6 +19,11 @@ The request body should contain the following fields:
 	+ **lastname**: The captain's last name (string, required)
 * **email**: The captain's email address (string, required)
 * **password**: The captain's password (string, required)
+* **veicle**: An object with two properties:
+    + **color**: The color of the vehicle (string, required)
+    + **plate**: The plate number of the vehicle (string, required)
+    + **capacity**: The capacity of the vehicle (number, required)
+    + **vehicleType**: The type of the vehicle (string, required)
 
 ## Example Request
 
