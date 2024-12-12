@@ -10,6 +10,13 @@ module.exports.userResgister = async (req, res, next) => {
   }
 
   const { fullname, email, password } = req.body;
+
+  // check if email already exists
+  const existingUser = await userModel.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({ error: "Email already exists" });
+  }
+
   const user = await userServices.createUser({
     firstname: fullname.firstname,
     lastname: fullname.lastname,
