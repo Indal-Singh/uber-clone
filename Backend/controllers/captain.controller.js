@@ -61,7 +61,9 @@ module.exports.getCaptainProfile = (req,res) =>{
 module.exports.getCaptainLogout = async (req,res) =>{
   const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
 
-  await BlackListToken.create({token});
+  if (!token) {
+      await BlackListToken.create({ token });
+    }
 
   return res.status(200).json({"message":"Cpatain Logged Out Successfully."});
 } 

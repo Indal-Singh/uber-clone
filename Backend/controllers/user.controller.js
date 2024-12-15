@@ -24,7 +24,7 @@ module.exports.userResgister = async (req, res, next) => {
     password,
   });
   const token = user.generateAuthToken();
-  return res.status(200).json({token, user});
+  return res.status(201).json({token, user});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -56,7 +56,9 @@ module.exports.getuserProfile = (req,res) =>{
 module.exports.getuserLogout = async (req,res) =>{
   const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
 
-  await BlackListToken.create({token});
+  if (!token) {
+    await BlackListToken.create({ token });
+  }
 
   return res.status(200).json({"message":"User Logged Out Successfully."});
 } 
