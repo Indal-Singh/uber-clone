@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-const UserProtectedWrapper = ({children}) => {
-const token = localStorage.getItem('userToken');
+const CaptainProtectedWrapper = ({children}) => {
+const token = localStorage.getItem('captainToken');
 const navigate = useNavigate();
 const [isloading, setIsLoading] = useState(true);
 
+// validate if the Captain Token valid or not
+
+
 useEffect(() => {
     if (!token) {
-        navigate('/login');
+        navigate('/captain-login');
     }
 
     const checkToken = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/captain/profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -24,18 +27,17 @@ useEffect(() => {
             }
         } catch (error) {
             console.error('error : ',error.message);
-            localStorage.removeItem('userToken');
-            navigate('/login');
+            localStorage.removeItem('captainToken');
+            navigate('/captain-login');
         }
     }
     checkToken();
-
 }, [token]);
     return (
         <>
-            {children}
+            {isloading?'Loading..':children}
         </>
     )
 }
 
-export default UserProtectedWrapper
+export default CaptainProtectedWrapper

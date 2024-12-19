@@ -39,7 +39,7 @@ const CaptainRegister = () => {
           const res = response.data
           setCaptain(res.user);
           localStorage.setItem('captainToken', res.token);
-          navigate('/home');
+          navigate('/captain-home');
         }
         else
         {
