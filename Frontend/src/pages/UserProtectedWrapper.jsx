@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const UserProtectedWrapper = ({children}) => {
 const token = localStorage.getItem('userToken');
-console.log(token)
 const navigate = useNavigate();
 
 useEffect(() => {
